@@ -1,0 +1,51 @@
+% !TeX program=lualatex
+
+%Requires lualatex or xelatex and installed fontss
+\documentclass[aspectratio=169,t]{beamer}
+\usetheme[
+	%Here you can add package options for the theme
+	numbering=fraction,% fraction/counter/none
+]{cccamp23}
+
+
+\usepackage{layout}
+
+%local definitions, generally not necessary
+\newcommand*{\code}[1]{\texttt{#1}}
+
+\graphicspath{{.}{resources/}}
+\begin{document}
+
+\title{\raisebox{-.3\height}{\includegraphics[width=.15\textwidth]{sprayed-23}}-beamer}
+\subtitle{\LaTeX{} beamer for CCCamp23}
+\author{marei \email{chaos@texhackse.de}}
+
+\maketitle
+	
+\begin{frame}[fragile]{Fonts}
+
+This bundle requires Questrial-Regular, SairaStencilOne-Regular and Beon-Regular\_EG fonts installed. They can be downloaded from the Styleguide \url{https://events.ccc.de/camp/2023/infos/styleguide.html}.
+	
+The standard text font is Questrial-Regular.
+
+Beon can be activated using \verb+\headerfont+ and is used for frame titles.
+
+SairaStencilOne is used by \verb+\stencilfont+. 
+
+\end{frame}
+
+\begin{frame}[plain]{A plain frame}
+this is another possibility to locally turn off the rockets
+\end{frame}
+
+\begin{frame}{Design Credits}
+The Design for this template is based on the official Camp Design by Veith Yäger.
+
+It can be found on \url{https://events.ccc.de/camp/2023/infos/styleguide.html}
+\end{frame}
+
+\begin{frame}
+	tbc
+\end{frame}
+
+\end{document}

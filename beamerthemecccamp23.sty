@@ -1,0 +1,225 @@
+\ProvidesPackage{beamerthemecccamp23}
+
+\PassOptionsToPackage{sectionpage=simple}{beamerinnerthememetropolis}
+
+\RequirePackage{fontspec}
+
+\ExplSyntaxOn
+
+\tl_new:c {g_ptxcd_rocket_tl}
+\int_new:c {g_ptxcd_frametitle_int}
+\bool_new:c  {g_ptxcd_frametitle_bool}
+
+\keys_define:nn {ptxcd/camp23}{
+	rocket .choices:nn = {all, chaos, communication, camp, none} {
+		\tl_gset_eq:cN {g_ptxcd_rocket_tl} \l_keys_choice_tl
+	},
+	rocket .initial:n = all,
+	glow .bool_gset:N = \g__ptxcd_glow_bool,
+	glow .initial:n = false,
+	numbering .code:n = {\PassOptionsToPackage{numbering=#1}{beamerouterthememetropolis}},
+	progressbar .bool_gset:c = {g_ptxcd_progressbar_bool},
+	progressbar .initial:n = true,
+	titleimage .tl_gset:c = {g_ptxcd_titleimage_tl},
+	titleimage .initial:n = resources/camp_start_(photo_richard-nolan)_clean,
+}
+
+\ProcessKeyOptions[ptxcd/camp23]
+
+\RequirePackage{beamerthememetropolis}
+
+\newcommand*\ChangeOptions[1]{\keys_set:nn {ptxcd/camp23}{#1}}
+
+
+
+\ExplSyntaxOff
+
+\setmainfont[Extension=.ttf]{Questrial-Regular}
+\setsansfont[Extension=.ttf]{Questrial-Regular}
+\setmonofont{Fira Mono}
+
+\newfontfamily{\stencilfont}{SairaStencilOne-Regular}[Extension=.ttf]
+\newfontfamily{\headerfont}{Beon-Regular_EG}
+
+
+%Color definitions
+
+\RequirePackage{transparent}
+
+\definecolor{push-pink}{RGB}{251,72,196}
+\definecolor{go-green}{RGB}{63,255,33}
+\definecolor{camp-bg}{RGB}{35,31,32}
+
+\pgfkeys{/metropolis/color/.cd,
+	background=light,
+	block=fill,
+}
+
+\setbeamercolor{title}{fg=push-pink}
+\setbeamercolor{subtitle}{fg=push-pink}
+\setbeamercolor{author}{fg=white}
+\setbeamercolor{institute}{fg=white}
+
+\ExplSyntaxOn
+\setbeamercolor*{frametitle}{fg=push-pink ,bg=}
+\ExplSyntaxOff
+\setbeamerfont{frametitle}{family=\headerfont,size=\LARGE}
+
+
+\setbeamercolor{progress bar}{%
+	fg=white,
+	bg=
+}
+
+\setbeamercolor{title separator}{
+	use=progress bar,
+	parent=progress bar
+}
+\setbeamercolor{progress bar in head/foot}{%
+	use=progress bar,
+	parent=progress bar
+}
+
+\setbeamercolor{normal text}{fg=black!15}
+\setbeamercolor{background canvas}{bg=camp-bg}
+
+\setbeamertemplate{background canvas}{\leavevmode\begin{beamercolorbox}[wd=\dimexpr\paperwidth+1cm\relax,ht=\paperheight+1pt,dp=1pt]{background canvas}
+\includegraphics[width=.3\paperwidth]{spray-bg-rgb}
+\end{beamercolorbox}
+}
+
+\setbeamercolor{progress bar in section page}{
+	use=progress bar,
+	parent=progress bar
+}
+
+\setbeamerfont*{title}{family=\headerfont,size*={35pt}{47pt}}%\huge}
+\setbeamerfont*{subtitle}{family=\headerfont,size*={15pt}{15pt}}
+
+\setbeamerfont*{author}{family=\normalfont,, size=\normalsize}
+\setbeamerfont*{institute}{family=\normalfont, size=\normalsize}
+
+\setbeamertemplate{title graphic}{
+	\vbox to 0pt {
+		\vspace*{\baselineskip}
+		\inserttitlegraphic
+	}%
+	\nointerlineskip%
+	\vspace{3\baselineskip}
+}
+
+\newcounter{titleindent}
+
+\ExplSyntaxOn
+
+\setbeamertemplate{title}{
+	\inserttitle
+}
+
+
+\setbeamertemplate{subtitle}{
+	\insertsubtitle
+}
+
+
+\ExplSyntaxOff
+
+\makeatletter
+
+\setbeamertemplate{title separator}{
+	\vspace*{-.5\baselineskip}
+	\textcolor{fg}{\rule{\textwidth}{\metropolis@titleseparator@linewidth}}
+}
+
+
+\ExplSyntaxOff
+\AtBeginSection{
+	\ifbeamer@inframe
+	\sectionpage
+	\else
+	\frame[c,noframenumbering]{\sectionpage}
+	\fi
+}
+
+
+\usetikzlibrary{math}
+
+\renewcommand*{\sectionpage}{
+	\centering
+	\begin{minipage}{22em}
+		\raggedright
+		\usebeamercolor[fg]{section title}
+		\usebeamerfont{section title}
+		\insertsectionhead\\[-1ex]
+		\usebeamertemplate*{progress bar in section page}
+		\par
+		\ifx\insertsubsectionhead\@empty\else%
+		\usebeamercolor[fg]{subsection title}%
+		\usebeamerfont{subsection title}%
+		\insertsubsectionhead
+		\fi
+	\end{minipage}
+}
+
+
+
+\setbeamercolor{title page}{fg=white}
+
+\setbeamertemplate{title page}{%
+	\vspace{2mm}
+	\begin{beamercolorbox}[ht=\paperheight,sep=3mm,wd=\paperwidth]{title page}%Hard coded, since hard coded in beamer.cls
+	\vbox to \dimexpr\paperheight - 8mm\relax{
+	\vspace{8mm}
+\begin{center}
+			\ifx\inserttitle\@empty\else
+				\usebeamertemplate*{title}\par
+				\bigskip
+				\ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+			\fi%
+			\par
+			\vspace{3\baselineskip}
+			\ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
+			\par
+			\ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
+			\par
+\end{center}
+\vfill
+		\leavevmode\strut
+		\insertdate\hspace*{\fill}\inserttitlegraphic\hspace*{5mm}
+		\par
+
+	}
+	\end{beamercolorbox}
+}
+
+\titlegraphic{\raisebox{0pt}[0pt][0pt]{\includegraphics[width=.15\textwidth]{Fisty-sprayed-Stencil_Neonpink}}}
+
+\def\maketitle{%
+	\ifbeamer@inframe
+	\titlepage
+	\else
+	\frame[plain,noframenumbering]{\titlepage}
+	\fi
+}
+\def\titlepage{%
+	\usebeamertemplate{title page}
+}
+
+\urlstyle{same}
+\DeclareUrlCommand\output@email{\urlstyle{same}\def\UrlLeft{<}\def\UrlRight{>}}
+\newcommand*{\email}[1]{\href{mailto:#1}{\output@email{#1}}}
+
+%LaTeX Logo kerning adjustment
+\DeclareRobustCommand{\LaTeX}{%
+	{L\setbox\z@\hbox{\check@mathfonts \fontsize\sf@size\z@
+			\math@fontsfalse\selectfont A}\kern-.57\wd\z@
+		\sbox\tw@ T\vbox to \ht\tw@{\copy\z@ \vss}\kern-.2\wd\z@}%
+	{%
+		\ifdim\fontdimen1\font=\z@ \else \count\z@=\fontdimen5\font
+		\multiply\count\z@ by 64\relax\divide\count\z@ by\p@
+		\count\tw@=\fontdimen1\font \multiply\count\tw@ by\count\z@
+		\divide\count\tw@ by 64\relax\divide\count\tw@ by\tw@
+		\kern-\the\count\tw@ sp\relax\fi}%
+	\TeX}
+
+\endinput
