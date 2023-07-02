@@ -1,6 +1,8 @@
 # cccamp23-beamer
 (Un)official beamer theme for [Chaos Communication Camp 2023](https://events.ccc.de/camp/2023)
 
+It's still a draft and may get some updates.
+
 It uses the official Design Templates privided by [Veith Yäger Sedivy](https://veith-yaeger.de/) which can be found on https://events.ccc.de/camp/2023/infos/styleguide.html
 
 ## Fonts
