@@ -110,6 +110,9 @@
 
 \newcounter{titleindent}
 
+
+\RequirePackage{accsupp}
+
 \ExplSyntaxOn
 
 \setbeamertemplate{title}{
@@ -121,6 +124,41 @@
 	\insertsubtitle
 }
 
+\cs_new:Nn \__ptxcd_neon_text:N {
+\leavevmode
+\exp_args:NNnV \seq_set_split:Nnn \l_tmpa_seq {~} #1
+\seq_map_inline:Nn \l_tmpa_seq {
+	\BeginAccSupp{ActualText=}%
+	\begingroup
+	\transparent{.03}
+		\clist_map_inline:nn {80,70,60,50,40,30,20,10}{
+		{
+			\fontspec{Beon-Regular_EG}[FakeBold=####1]%
+			\rlap{##1}}%
+		}
+	\endgroup
+	 \EndAccSupp{}
+	##1~
+	}
+}
+
+\bool_if:NT \g__ptxcd_glow_bool {
+	\defbeamertemplate*{frametitle}{CCCamp23}{%
+	  \nointerlineskip%
+	  \begin{beamercolorbox}[%
+	      wd=\paperwidth,%
+	      sep=0pt,%
+	      leftskip=\metropolis@frametitle@padding,%
+	      rightskip=\metropolis@frametitle@padding,%
+	    ]{frametitle}%
+	  \metropolis@frametitlestrut@start%
+	  \__ptxcd_neon_text:N
+	  \insertframetitle%
+	  \nolinebreak%
+	  \metropolis@frametitlestrut@end%
+	  \end{beamercolorbox}%
+	}
+}
 
 \ExplSyntaxOff
 
