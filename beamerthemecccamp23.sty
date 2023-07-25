@@ -3,6 +3,7 @@
 \PassOptionsToPackage{sectionpage=simple}{beamerinnerthememetropolis}
 
 \RequirePackage{fontspec}
+\RequirePackage{anyfontsize}
 
 \ExplSyntaxOn
 
@@ -36,10 +37,13 @@
 
 \setmainfont[Extension=.ttf]{Questrial-Regular}
 \setsansfont[Extension=.ttf]{Questrial-Regular}
+\renewcommand*{\familydefault}{\sfdefault}
 \setmonofont{Fira Mono}
 
 \newfontfamily{\stencilfont}{SairaStencilOne-Regular}[Extension=.ttf]
 \newfontfamily{\headerfont}{Beon-Regular_EG}
+
+\RequirePackage{unicode-math}%resolve font warnings
 
 
 %Color definitions
@@ -63,7 +67,7 @@
 \ExplSyntaxOn
 \setbeamercolor*{frametitle}{fg=push-pink ,bg=}
 \ExplSyntaxOff
-\setbeamerfont{frametitle}{family=\headerfont,size=\LARGE}
+\setbeamerfont{frametitle}{family=\headerfont,size=\LARGE,series=\mdseries}
 
 
 \setbeamercolor{progress bar}{%
