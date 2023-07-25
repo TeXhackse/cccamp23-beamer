@@ -87,9 +87,13 @@
 \setbeamercolor{normal text}{fg=black!15}
 \setbeamercolor{background canvas}{bg=camp-bg}
 
-\setbeamertemplate{background canvas}{\leavevmode\begin{beamercolorbox}[wd=\dimexpr\paperwidth+1cm\relax,ht=\paperheight+1pt,dp=1pt]{background canvas}
-\includegraphics[width=.3\paperwidth]{spray-bg-rgb}
-\end{beamercolorbox}
+\setbeamertemplate{background canvas}{%
+	\hskip\beamer@leftmargin
+	\begin{beamercolorbox}[wd=\paperwidth]{background canvas}
+		\vbox to \paperheight{
+			\vfill\includegraphics[width=.3\paperwidth]{spray-bg-rgb}
+		}
+	\end{beamercolorbox}
 }
 
 \setbeamercolor{progress bar in section page}{
@@ -208,33 +212,33 @@
 \setbeamercolor{title page}{fg=white}
 
 \setbeamertemplate{title page}{%
-	\vspace{2mm}
-	\begin{beamercolorbox}[ht=\paperheight,sep=3mm,wd=\paperwidth]{title page}%Hard coded, since hard coded in beamer.cls
-	\vbox to \dimexpr\paperheight - 8mm\relax{
-	\vspace{8mm}
-\begin{center}
-			\ifx\inserttitle\@empty\else
-				\usebeamertemplate*{title}\par
-				\bigskip
-				\ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
-			\fi%
-			\par
-			\vspace{3\baselineskip}
-			\ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
-			\par
-			\ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
-			\par
-\end{center}
-\vfill
+	\vspace*{\fill}
+	\vbox to \dimexpr\paperheight - 5mm\relax {
+	\vspace{15mm}
+	\begin{beamercolorbox}{title page}%Hard coded, since hard coded in beamer.cls
+%	\vspace{8mm}
+	\centering
+				\ifx\inserttitle\@empty\else
+					\usebeamertemplate*{title}\par
+					\bigskip
+					\ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+				\fi%
+				\par
+				\vspace{3\baselineskip}
+				\ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
+				\par
+				\ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
+				\par
+	\end{beamercolorbox}\par
+	\vfill
 		\leavevmode\strut
-		\insertdate\hspace*{\fill}\inserttitlegraphic\hspace*{5mm}
+		\makebox[\linewidth][c]{\makebox[\dimexpr\paperwidth-1cm]{\insertdate\hspace*{\fill}\inserttitlegraphic\hspace*{5mm}}}
 		\par
-
+	\vss
 	}
-	\end{beamercolorbox}
 }
 
-\titlegraphic{\raisebox{0pt}[0pt][0pt]{\includegraphics[width=.15\textwidth]{Fisty-sprayed-Stencil_Neonpink}}}
+\titlegraphic{\makebox[.1\textwidth][l]{\raisebox{0pt}[0pt][0pt]{\includegraphics[width=.15\textwidth]{Fisty-sprayed-Stencil_Neonpink}}}}
 
 \def\maketitle{%
 	\ifbeamer@inframe
@@ -250,6 +254,8 @@
 \urlstyle{same}
 \DeclareUrlCommand\output@email{\urlstyle{same}\def\UrlLeft{<}\def\UrlRight{>}}
 \newcommand*{\email}[1]{\href{mailto:#1}{\output@email{#1}}}
+
+\pdfstringdefDisableCommands{\renewcommand*{\email}[1]{}}
 
 %LaTeX Logo kerning adjustment
 \DeclareRobustCommand{\LaTeX}{%
